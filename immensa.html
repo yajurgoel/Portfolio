@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Yajur Goel’s internship at Immensa: a scroll-driven journey from a physical part through laser scanning, CAD reconstruction, and deviation analysis.">
+  <title>Inside Immensa — Yajur Goel</title>
+  <link rel="stylesheet" href="assets/immensa.css">
+  <script src="assets/immensa.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#after-story">Skip the animation</a>
+  <!-- The long track supplies scroll distance; the frame stays pinned inside it. -->
+  <main>
+    <section class="story-track" id="story" aria-label="Eight stages of reverse engineering">
+      <div class="story-frame">
+        <header class="site-header">
+          <a class="wordmark" href="index.html">Yajur Goel<span> / </span>ME</a>
+          <a class="back-link" href="index.html#projects">↖ Back to portfolio</a>
+        </header>
+        <div class="story-layout">
+          <div class="narrative">
+            <p class="eyebrow"><span class="orange-dot"></span> Field notes / Immensa</p>
+            <h1>From physical part<br> to <em>digital precision.</em></h1>
+            <p class="intro">A look inside my internship.<br>One part. Eight stages of reverse engineering.</p>
+            <!-- Captions are authored in STORY.stages in assets/immensa.js. -->
+            <div class="caption" aria-live="polite" aria-atomic="true">
+              <p class="stage-kicker" id="stage-kicker">01 / Observe</p>
+              <h2 id="stage-title">The part.</h2>
+              <p id="stage-caption">Every digital model starts with something real. A simple bolt is the starting point for this walkthrough.</p>
+            </div>
+            <div class="scroll-hint"><span>↓</span> <span id="scroll-hint">Scroll to follow the process</span></div>
+          </div>
+          <figure class="workbench" aria-labelledby="scene-description">
+            <div class="bench-heading"><span>Reverse engineering / Study 001</span><span id="mode-label">Physical part</span></div>
+            <!-- Replace the bolt geometry in <defs> or the scene group with your own SVG. -->
+            <svg id="scene" viewBox="0 0 800 520" role="img" aria-labelledby="scene-title scene-description">
+              <title id="scene-title">A bolt being reverse engineered</title>
+              <desc id="scene-description">A solid bolt centered on a workshop grid.</desc>
+              <defs>
+                <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#7e8778"/><stop offset=".26" stop-color="#d3d8c9"/><stop offset=".48" stop-color="#f4f1e5"/><stop offset=".67" stop-color="#b4bbaa"/><stop offset="1" stop-color="#747f6a"/></linearGradient>
+                <linearGradient id="headMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e2e4d6"/><stop offset="1" stop-color="#7e8b71"/></linearGradient>
+                <linearGradient id="cadMetal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8fa17a"/><stop offset=".4" stop-color="#e3ebd5"/><stop offset="1" stop-color="#61754f"/></linearGradient>
+                <!-- Smooth deviation fields: blue/cyan inward, green nominal, yellow/red outward. -->
+                <radialGradient id="deviation-cool"><stop stop-color="#165ce5"/><stop offset=".28" stop-color="#008ff0"/><stop offset=".58" stop-color="#16d9d0"/><stop offset="1" stop-color="#43c861" stop-opacity="0"/></radialGradient>
+                <radialGradient id="deviation-warm"><stop stop-color="#e44428"/><stop offset=".22" stop-color="#f28d22"/><stop offset=".55" stop-color="#e5e43a"/><stop offset="1" stop-color="#43c861" stop-opacity="0"/></radialGradient>
+                <linearGradient id="deviation-base" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#68d85c"/><stop offset=".45" stop-color="#47cb57"/><stop offset="1" stop-color="#32ae59"/></linearGradient>
+                <pattern id="scene-grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="#718464" stroke-opacity=".12"/></pattern>
+                <path id="bolt-outline" d="M-175-30-153-50H-118L-96-30V-24H146L162-12V12L146 24H-96V30L-118 50H-153L-175 30Z"/>
+                <clipPath id="bolt-clip"><use href="#bolt-outline"/></clipPath>
+                <clipPath id="scan-clip"><rect id="scan-reveal" x="-180" y="-60" width="0" height="120"/></clipPath>
+                <filter id="laser-glow" x="-100%" y="-20%" width="300%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
+                <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="m0 0 6 3-6 3" fill="none" stroke="#5c6b4e"/></marker>
+                <g id="solid-bolt">
+                  <path d="M-100-24H146L162-12V12L146 24H-100Z" fill="url(#metal)" stroke="#626f56" stroke-width="1.5"/>
+                  <g id="physical-threads" fill="none" stroke="#66765b" stroke-width="1.4"></g>
+                  <path d="M-175-30-153-50H-118L-96-30V30L-118 50H-153L-175 30Z" fill="url(#headMetal)" stroke="#626f56" stroke-width="1.5"/>
+                  <path d="M-175-30H-140L-118-10V30L-140 50M-140-30-118-50M-118-10-96-30M-118 30-96 30" fill="none" stroke="#65725b"/>
+                  <path d="M-153-37H-134L-124-24" fill="none" stroke="#eef0e5" stroke-width="2"/>
+                </g>
+              </defs>
+              <rect width="800" height="520" fill="url(#scene-grid)"/>
+              <g class="registration" stroke="#8a967c" stroke-width="1"><path d="M20 30h16m-8-8v16M764 30h16m-8-8v16M20 490h16m-8-8v16M764 490h16m-8-8v16"/></g>
+              <g id="cad-window" opacity="0">
+                <rect x="28" y="62" width="744" height="388" rx="5" fill="#f1f2e9" stroke="#a9b39c"/>
+                <path d="M28 96H772M28 130H772M170 130V450" stroke="#bac2af"/>
+                <circle cx="45" cy="79" r="3" fill="#a0ab93"/><circle cx="57" cy="79" r="3" fill="#b7bfac"/><circle cx="69" cy="79" r="3" fill="#ccd1c2"/>
+                <text x="91" y="83" class="svg-label">PART STUDIO / UNTITLED</text>
+                <g class="svg-small" fill="#5c6b50"><text x="45" y="117">File</text><text x="91" y="117">View</text><text x="142" y="117">Mesh</text><text x="201" y="117">Surface</text><text x="274" y="117">Measure</text><text x="352" y="117">Compare</text></g>
+                <text x="43" y="154" class="svg-label">MODEL TREE</text>
+                <g class="svg-small"><text x="43" y="184">⌄ Part_001</text><text x="54" y="208">◇ Scan mesh</text><text x="54" y="232" id="tree-feature">⊞ Reference axes</text><text x="54" y="256" id="tree-detail">— Unaligned</text></g>
+                <g transform="translate(718 400)" stroke-width="1.6"><path d="M0 0h25" stroke="#c66545"/><path d="M0 0v-25" stroke="#71865a"/><path d="M0 0l-15 13" stroke="#5d84a1"/><g stroke="none" class="svg-small"><text x="28" y="4">X</text><text x="-4" y="-31">Y</text><text x="-24" y="23">Z</text></g></g>
+                <text x="43" y="432" class="svg-label">mm / PERSPECTIVE</text>
+              </g>
+              <ellipse id="part-shadow" cx="400" cy="361" rx="205" ry="13" fill="#7c8c68" opacity=".12"/>
+              <g id="axes" opacity="0" stroke-width="1.2" stroke-dasharray="5 5"><path d="M245 285H735" stroke="#c46c4c"/><path d="M473 164V400" stroke="#688552"/><path d="M374 360 566 212" stroke="#62849b"/><g stroke="none" class="svg-label"><text x="728" y="278" fill="#a34b32">X</text><text x="480" y="170" fill="#526c41">Y</text><text x="566" y="205" fill="#466d8a">Z</text></g><circle cx="473" cy="285" r="5" stroke="#596c4b" fill="#f3f1e9"/></g>
+              <g id="part-position" transform="translate(400 270)">
+                <g id="part-rotation" transform="rotate(-19)">
+                  <g id="physical"><use href="#solid-bolt"/></g>
+                  <!-- Deterministic triangle and point geometry is generated once, never per frame. -->
+                  <g id="scan-mesh" clip-path="url(#scan-clip)" opacity="0"><g clip-path="url(#bolt-clip)"><g id="mesh-faces"></g><g id="mesh-points"></g></g><use href="#bolt-outline" fill="none" stroke="#637957" stroke-width=".7" opacity=".6"/></g>
+                  <g id="scan-light" opacity="0"><path id="laser-fan" fill="#d96c42" opacity=".09"/><path id="laser-blur" stroke="#e45f35" stroke-width="8" filter="url(#laser-glow)"/><path id="laser-line" stroke="#dc572c" stroke-width="2"/><circle id="laser-point" cy="-105" r="4" fill="#dc572c"/></g>
+                  <g id="clean-solid" opacity="0"><use href="#bolt-outline" fill="url(#cadMetal)" stroke="#456039" stroke-width="1.3"/><g id="cad-threads" fill="none" stroke="#526e42" stroke-width="1"/><path d="M-175-30H-140L-118-10V30L-140 50M-140-30-118-50M-118-10-96-30M-118 30-96 30" fill="none" stroke="#526e42"/></g>
+                  <g id="deviation" opacity="0" clip-path="url(#bolt-clip)">
+                    <use href="#bolt-outline" fill="url(#deviation-base)"/>
+                    <ellipse cx="-145" cy="-24" rx="32" ry="27" fill="url(#deviation-cool)"/>
+                    <ellipse cx="55" cy="23" rx="35" ry="24" fill="url(#deviation-cool)"/>
+                    <ellipse cx="140" cy="-20" rx="29" ry="24" fill="url(#deviation-warm)"/>
+                    <ellipse cx="-95" cy="29" rx="22" ry="20" fill="url(#deviation-warm)"/>
+                    <path d="M-175-30H-140L-118-10V30L-140 50M-140-30-118-50M-118-10-96-30M-118 30-96 30" fill="none" stroke="#276c43" stroke-opacity=".35" stroke-width=".8"/>
+                  </g>
+                  <!-- Rebuild storyboard uses the same local coordinates as the measured shaft. -->
+                  <g id="rebuild-story" opacity="0">
+                    <g id="sketch-profile" fill="none" stroke="#567346" stroke-width="1.5">
+                      <path d="M-116 0H182" stroke-dasharray="7 5" stroke="#c97547"/>
+                      <path d="M-96 0V-24H162V0Z" fill="#8bad7026"/>
+                      <path d="M-96 0V24H162V0" stroke-dasharray="3 4" opacity=".4"/>
+                      <circle cx="-96" cy="-24" r="3" fill="#f3f1e9"/><circle cx="162" cy="-24" r="3" fill="#f3f1e9"/>
+                      <circle cx="-40" cy="-24" r="3" fill="#f3f1e9"/><circle cx="-40" cy="24" r="3" fill="#f3f1e9"/>
+                    </g>
+                    <g id="sketch-length" opacity="0" stroke="#5c6b4e" fill="none"><path d="M-96-29V-74M162-29V-74"/><path d="M-92-66H158" marker-start="url(#arrow)" marker-end="url(#arrow)"/><rect x="-5" y="-78" width="75" height="22" fill="#f1f2e9" stroke="none"/><text id="sketch-length-text" x="32" y="-63" text-anchor="middle" class="dimension-text">60 mm</text></g>
+                    <g id="sketch-diameter" opacity="0" stroke="#5c6b4e" fill="none"><path d="M-40-24H207M-40 24H207" stroke-dasharray="3 4" opacity=".5"/><path d="M195-20V20" marker-start="url(#arrow)" marker-end="url(#arrow)"/><text id="sketch-diameter-text" x="207" y="4" class="dimension-text">Ø12 mm</text></g>
+                    <g id="revolve-blank" opacity="0"><path d="M-96-24H162V24H-96Z" fill="url(#cadMetal)" stroke="#567346"/><ellipse cx="162" cy="0" rx="9" ry="24" fill="url(#headMetal)" stroke="#567346"/><ellipse cx="-96" cy="0" rx="9" ry="24" fill="none" stroke="#567346"/></g>
+                    <g id="revolve-sweep" opacity="0" fill="none" stroke="#dc572c" stroke-width="1.6"><ellipse cx="33" cy="0" rx="14" ry="40" stroke-dasharray="4 4" opacity=".5"/><path id="revolve-profile" d="M-96 0V-24H162V0"/><path id="revolve-orbit"/><circle id="revolve-tip" r="3" fill="#dc572c" stroke="none"/></g>
+                    <g id="revolve-command"><rect id="revolve-command-bg" x="-49" y="-129" width="165" height="28" rx="3" fill="#e3e8d8" stroke="#a5b391"/><text x="-35" y="-111" class="svg-small">⟳ Revolve · 360°</text></g>
+                    <g id="cursor-click" opacity="0"><circle id="click-ring" r="9" fill="#dc572c22" stroke="#dc572c" stroke-width="1.5"/></g>
+                    <g id="demo-cursor"><path d="M0 0 2 21 7 15 12 25 16 23 11 13 19 12Z" fill="#fcfaf1" stroke="#29352a" stroke-width="1.5" stroke-linejoin="round"/></g>
+                  </g>
+                  <g id="dimensions" fill="none" stroke="#5c6b4e" stroke-width="1">
+                    <g id="dim-length" opacity="0"><path d="M-96 29V87M162 18V87"/><path d="M-92 76H158" marker-start="url(#arrow)" marker-end="url(#arrow)"/><rect x="-5" y="65" width="66" height="22" fill="#f1f2e9" stroke="none"/><text x="28" y="80" text-anchor="middle" class="dimension-text" id="length-label">60 mm</text></g>
+                    <g id="dim-diameter" opacity="0"><path d="M150-24H195M150 24H195"/><path d="M185-20V20" marker-start="url(#arrow)" marker-end="url(#arrow)"/><text x="201" y="5" class="dimension-text" id="diameter-label">Ø12</text></g>
+                    <g id="dim-pitch" opacity="0"><path d="M73-25V-64H127"/><circle cx="73" cy="-25" r="2.5" fill="#dc572c" stroke="none"/><text x="45" y="-75" class="dimension-text" id="pitch-label">P = 1.75 mm</text></g>
+                  </g>
+                </g>
+              </g>
+              <g id="align-tool" opacity="0"><rect x="220" y="373" width="300" height="39" rx="3" fill="#e2e7d7" stroke="#a6b494"/><text x="236" y="397" class="svg-small" id="align-label">Mesh → surface / Aligning to datum…</text></g>
+              <g id="build-label" opacity="0"><rect x="237" y="374" width="300" height="36" rx="3" fill="#e2e7d7" stroke="#a6b494"/><text x="252" y="397" class="svg-small"><tspan id="rebuild-instruction">Sketch / Select the first length point</tspan></text></g>
+            </svg>
+            <img id="stage-photo" class="stage-photo" alt="" hidden>
+            <div class="scene-readout"><span id="readout">SPECIMEN 001 / HEX-HEAD BOLT</span><span class="status-light" id="status">Ready to scan</span></div>
+            <div class="deviation-legend" id="legend" hidden>
+              <div class="legend-title"><span>Signed surface deviation</span><span id="tolerance-label">Example tolerance ±0.10 mm</span></div>
+              <div class="legend-bar" aria-hidden="true"></div>
+              <div class="legend-labels"><span>Blue / inward<br><b id="negative-range">&lt; −0.10 mm</b></span><span>Green / within tolerance<br><b id="within-range">−0.10 to +0.10 mm</b></span><span>Red / outward<br><b id="positive-range">&gt; +0.10 mm</b></span></div>
+            </div>
+            <figcaption>Illustrative part, dimensions & comparison. Not measured internship results.</figcaption>
+          </figure>
+        </div>
+        <div class="story-controls">
+          <div class="progress-meta"><span id="progress-label">01 / 08</span><span>Scroll to explore · Select any stage to jump</span><a href="#after-story">Skip to notes ↘</a></div>
+          <nav class="stage-nav" aria-label="Workflow stages" id="stage-nav"></nav>
+        </div>
+      </div>
+    </section>
+    <section class="after-story" id="after-story">
+      <p class="eyebrow">Immensa / Internship notebook</p>
+      <h2>A physical part.<br>A digital counterpart.</h2>
+      <p>Scan, align, measure, rebuild, compare. This walkthrough captures the workflow; detailed internship notes and original project imagery will follow.</p>
+      <a class="button" href="index.html#projects">Back to my projects <span>↗</span></a>
+      <details><summary>Read the full workflow</summary><ol id="transcript"></ol></details>
+    </section>
+  </main>
+  <footer><span>Yajur Goel / Mechanical engineering</span><a href="#story">Replay the process ↑</a></footer>
+  <noscript><p class="no-script">Enable JavaScript for the interactive walkthrough. Workflow: physical part → laser scan → mesh → CAD import → alignment → measurements → parametric model → deviation comparison.</p></noscript>
+</body>
+</html>
